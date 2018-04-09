@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset='utf-8'>
+		<title>Daily Practice 4-9-2018 [Basics]</title>
+		<!-- Style -->
+		<style type='text/css'>
+		
+			div.dodad
+			{
+				position.fixed;
+				padding:10px;
+				font-style:"Verdana",sans-serif;
+				font-size:1.2em;
+				color:blue;
+				border-style:solid;
+				border-width:1px;
+				border-radius:7px;
+				border-color:grey;
+				box-shadow: 4px 4px 4px grey;
+				width:200px;
+				height:75px;
+			}
+			
+		</style>
+		
+		<!-- End Style -->
+		
+		
+		<script type='text/javascript'>
+		var prt = {
+			uuid:'1234556',
+			name: '',
+			stored_val:''
+		};
+		var stored = [];
+		
+			
+			function storeVar()
+			{
+				var x = Object.create(prt);
+				x.uuid == '1';
+				x.name = 'test obj1';
+				x.stored_val = '...some arbitrary val';
+				stored.push(x);
+				console.log("I have been 'stored'....\n");
+				
+			}
+		
+			function retreiveVar()
+			{
+				console.log("Target Stored Obj name.prop => " + stored[0].name + "\n");
+			}
+			
+			function createDoDad()
+			{
+				var ply = document.getElementById("play_area");
+				ply.innerHTML = "";
+				console.log("Cleared....\n");
+				var b = stored[0];
+				var nwDiv  = document.createElement('DIV');
+				nwDiv.setAttribute("class","dodad");
+				nwDiv.setAttribute("id","doDaddery_1");
+				nwDiv.innerHTML = "<span>" + b.uuid + "</span><br /><span>" + b.name + "</span><br />" + b.stored_val + "</span><br />";
+				console.log("getting and setting data, placing on 'screen' \n");
+				console.log("[OBJ] => " + b + "\n");
+				console.log("[OBJ].[stored_val] => " + b.stored_val + "\n");
+				
+				
+				ply.appendChild(nwDiv);
+			
+			}
+			
+			function resetBoard()
+			{
+				var em = document.getElementById("play_area");
+				em.innerHTML = "";
+			}
+			
+		
+		</script>
+		
+		</head>
+		<body>
+			<h1>Daily Practice - 4-09-2018</h1>
+			<hr />
+			<!-- Target Container -->
+			<div id='container'>
+			<input type='button' value='[SET]' onclick=storeVar();  />
+			<input type='button' value='[GET]' onclick=retreiveVar(); />
+			<input type='button' value='[DHTML_IT]' onclick=createDoDad(); />
+			<input type='button' value='[RESET]' onclick=resetBoard(); />
+				<div id='play_area'>
+					
+				</div>
+				
+									
+				
+			</div>
+			
+			
+			
+			
+		</body>
+		</html>
+		
+		
