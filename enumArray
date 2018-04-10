@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset='utf-8'>
+		<title>Practice 4-10-2018</title>
+		<style type='text/css'>
+		</style>
+		<script type='text/javascript'>
+		var obj1 = {
+			id:0,
+			name:''
+		}
+		var objs=[];
+			
+		function createTen()
+			{
+			for (i=0;i<10;i++)
+				{
+				var a = Object.create(obj1);
+				a.id = i;
+				a.name = "Object: " + i;
+				objs.push(a);
+				
+				}
+				console.log("objs created....\n");
+				
+			}
+			function getVals()
+			{
+				var tgt = document.getElementById("container");
+				tgt.innerHTML = "";
+				var apnd = "";
+				for(i=0;i<objs.length;i++)
+				{
+					var b = objs[i];
+					//console.log("Name: " + b.name + " | ID: " + b.id + "\n");
+					apnd += "<br /><span>Name: "  + b.name + " | ID: " + b.id + "</span>"
+				}
+				tgt.innerHTML = apnd;
+			}
+			function resetD()
+			{
+				var tgt = document.getElementById("container");
+				tgt.innerHTML = "";
+				
+			}
+			
+		</script>
+	</head>
+	<body onload=createTen(); >
+		<h3>4-10-2018 Practice</h3>
+		<hr />
+		<input type='button' value='[enum array]' onclick=getVals(); />
+		<input type='button' value='[RESET]' onclick=resetD(); />
+									
+		<div id='container'>
+			
+		</div>
+	
+	
+	</body>
+	</html>
+	
