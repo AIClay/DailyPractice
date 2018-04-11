@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset='UTF-8' >
+		<title>4-11-2018 Form Handling</title>
+		<style type='text/css'>
+		div.simBox
+		{
+		font-family:"Verdana",sans-serif;
+		font-size:1.2em;
+		color:green;
+		border-style:solid;
+		border-color:black;
+		border-radius:7px;
+		box-shadow:4px 4px 10px black;
+		position:fixed;
+		left:300px;
+		top:120px;
+		height:100px;
+		width:200px;
+		border-width:1px;
+			background-color:white;
+			z-index:999;
+		visibility:hidden;
+		padding:10px;
+	}
+			
+		
+		
+		</style>
+		<script type='text/javascript'>
+			var frmOBJ ={
+				fname:'',
+				department:'',
+				lname:'',
+				tel:0
+			}
+			var arObjs=[];
+			var departs = ['Administration','Production','Installation','Finance','Quality Control'];
+			
+			function init()
+			{
+			var tgt_ctrl = document.getElementById('depart');
+				tgt_ctrl.innerHTML = "";
+				var newItems = '';
+				for (i=0;i<departs.length;i++)
+				{
+					newItems += "<option>" + departs[i] + "</option>";
+				}
+				tgt_ctrl.innerHTML = newItems;
+			}
+			
+			function resetVals()
+			{
+				var frm = document.forms.frm1;
+				frm.frm_fname.value = '';
+				frm.frm_lname.value = '';
+				frm.frm_depart.value = 'Administration';
+				frm.frm_tel.value = '';
+				var tgt = document.getElementById("valBox");
+				tgt.innerHTML = "";
+				tgt.style.visibility = "hidden";
+			}
+			
+			
+			function faux_sub()
+			{
+				var frm = document.forms.frm1;
+				var empOBJ = Object.create(frmOBJ);
+				empOBJ.fname = frm.frm_fname.value;
+				empOBJ.lname = frm.frm_lname.value;
+				empOBJ.department = frm.frm_depart.value;
+				empOBJ.tel = frm.frm_tel.value;
+				// link here to process 'obj'
+				process_obj(empOBJ);
+			}
+			
+			function process_obj(empOBJ)
+			{
+					var tgt = document.getElementById("valBox");
+					tgt.innerHTML = '';
+					var newINHTML = "";
+					newINHTML += "<span>" + empOBJ.fname + "</span><br />";
+					newINHTML += "<span>" + empOBJ.lname + "</span><br />";
+					newINHTML += "<span>" + empOBJ.department + "</span><br />";
+					newINHTML += "<span>" + empOBJ.tel + "</span><br />";
+					tgt.innerHTML = newINHTML;
+					tgt.style.visibility = "visible";
+			}
+			
+		</script>
+	</head>
+	<body onload=init(); >
+	<h3>4-11-2018 [Form Handling **SIMULATED** no server side code/processing.]</h3>
+	<hr />
+		<span> [Processing Controls] => </span>&nbsp;<input type='button' value='[FAUX SUBMIT]' onclick=faux_sub(); />
+		<input type='button' value='[RESET VALS]' onclick=resetVals(); />
+		
+		<br />
+		<hr />
+	<div id='container'>
+		<form method='POST' action='' name='frm1'>
+			<br />
+			<label>FNAME: </label><input type='textarea' cols='50' rows='1' name='frm_fname' />
+			<br /><br />
+			<label>LNAME: </label><input type='textarea' cols='50' rows='1' name='frm_lname' />
+			<br /><br />
+			<label>DEPARTMENT: </label><select id='depart' name='frm_depart'></select>
+			<br /><br />
+			<label>TEL: </label><input type'tel' name='frm_tel' />
+			<br /><br />
+		</form>
+		<div id='valBox' class='simBox'></div>
+	</div>
+	</body>
+	</html>
