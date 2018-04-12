@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset='UTF-8' >
+		<title>4-12-2018 Practice</title>
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+		 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+		<style type='text/css'>
+		div.Red
+			{
+				font-family:"Roboto", sans-serif;
+				font-size:1.2em;
+				color:red;
+			} 
+		div.Green
+			{
+				font-family:"Verdana", sans-serif;
+				font-size:1.2em;
+				color:green;
+			v}
+		div.Blue
+		{
+			font-family:"Tangerine",serif;
+				font-size:3.2em;
+				color:blue;
+			}
+		
+		
+		</style>
+		
+		<script type='text/javascript'>
+		function setRed()
+			{
+				var em = document.getElementById("tgtChange");
+				em.setAttribute("class","Red");
+				em.innerHTML = 'This is the target text to change. [RED]';
+			}
+		function setGreen()
+			{
+				var em = document.getElementById("tgtChange");
+				em.setAttribute("class","Green");
+				em.innerHTML = 'This is the target text to change. [GREEN]';
+			}
+		function setBlue()
+			{
+				var em = document.getElementById("tgtChange");
+				em.setAttribute("class","Blue");
+				em.innerHTML = 'This is the target text to change. [BLUE]';
+			}
+			
+		
+			
+		</script>
+	</head>
+	<body>
+		<h3>4-12-2018 Practice - [Easy] Changing style 'Classes' with TrueJavaScript</h3>
+		<hr />
+		<input type='button' value='[RED]' onclick=setRed(); /><input type='button' value='[GREEN]' onclick=setGreen(); /><input type='button' value='[BLUE]' onclick=setBlue(); />
+									
+		<div id='tgtArea'>
+			<br />
+			<br />
+			<div id='tgtChange'>
+				<span>This is the target text to change. [Default]</span>
+			</div>
+			
+			
+		</div>
+	
+	</body>
+	</html>
