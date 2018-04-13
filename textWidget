@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset='utf-8' >
+		<title>4-13-2018</title>
+		<style type='text/css'>
+			span.tgtTXT
+			{
+				position:fixed;
+				left:40px;
+				top:300px;
+				font-style:"Verdana",sans-serif;
+				font-size:1.0em;
+				color:blue;
+			}
+			div.hslChoice
+			{
+				border-style:solid;
+				border-width:1px;
+				border-color:black;
+				width:300px;
+				height:175px;
+			}
+			
+		</style>
+		<script type='text/javascript'>
+		var hue = 0; //int 0-360
+		var sat = ''; //string concat %
+		var lght = '';//string concat %
+			
+			
+		function chngSZ()
+			{
+				var tgt = document.getElementById('tgtTXT');
+				var tgt2 = document.getElementById('txtSZ');
+				tgt.style.fontSize = tgt2.value + "em";
+				//debug
+				console.log(tgt2.value + "\n");
+			}
+			
+		function chngHUE()
+			{
+				var tgtHUE = document.getElementById('txtHSL');
+				hue = tgtHUE.value;
+			}
+		function chngSAT()
+			{
+				var tgtSAT = document.getElementById('txtHSL2');
+				sat = tgtSAT.value + '%';
+			}
+				
+		function chngLIGHT()
+			{
+				var tgtLGHT = document.getElementById('txtHSL3');
+				lght = tgtLGHT.value + "%";
+			}
+		function applyHSL()
+			{
+				var tgt = document.getElementById('tgtTXT');
+				tgt.style.color = 'HSL(' + hue + ',' + sat + ',' + lght + ')';
+				// debug
+				console.log(hue + "\n" + sat + '\n' + lght + '\n');
+				console.log(tgt.style.color);
+						
+			}
+				
+		function resetVals()
+			{
+				var rng1 = document.getElementById('txtHSL');
+				rng1.value = 180;
+				hue = 180;
+				var rng2 = document.getElementById('txtHSL2');
+				rng2.value = 50;
+				sat = "100%";
+				var rng3 = document.getElementById('txtHSL3');
+				rng3.value = 50;
+				lght = "0%";
+				applyHSL();
+			}
+				
+		</script>
+	</head>
+	<body>
+		<h3>Text Widget - 4-13-2018</h3>
+		<hr />
+		<br />
+		<span>Text Size [em's]: </span>&nbsp;<input type='range' id='txtSZ' max='10' min='0' step='0.1' onchange=chngSZ(); />
+		<br />
+		<div id='hslChoice' class='hslChoice'>
+				
+		<span>Text Color [HSL/H]: </span>&nbsp;<input type='range' id='txtHSL' max='360' min='0' step='1' onchange=chngHUE(); />
+		<br />
+			<span>Text Color [HSL/S]: </span>&nbsp;<input type='range' id='txtHSL2' max='100' min='0' step='1' onchange=chngSAT(); />
+			<br />
+			<span>Text Color [HSL/L]: </span>&nbsp;<input type='range' id='txtHSL3' max='100' min='0' step='1' onchange=chngLIGHT(); />
+			<br />
+			<br />
+			<br />
+			<input type='button' value='[APPLY]' onclick=applyHSL(); /><input type='button' value='[RESET VALS]' onclick=resetVals(); />
+				
+																			  
+			
+				
+		</div>
+			
+		<div id='container'>
+			<span id='tgtTXT' class='tgtTXT'>This text changes</span>
+		</div>
+	
+	
+	</body>
+	</html>
+	
