@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset='utf-8' >
+		<title>4-14-2018</title>
+		<style type='text/css'>
+			div.input
+			{
+				font-family:"Verdana",sans-serif;
+				font-size:1.2em;
+				color:black;
+				position:fixed;
+				left:4px;
+				top:325px;
+				border-style:solid;
+				border-width:1px;
+				border-radius:7px;
+				border-color:black;
+				width:260px;
+				height:120px;
+				padding:3px;
+			}
+		</style>
+		<script type='text/javascript'>
+			// object structure to be created 
+			var tmpOBJ = {
+				UUID:'',
+				Name:'',
+				Val_2:'',
+				timeStamp:''
+			}; 
+			
+			// vars for 'official' time date stamp of session object
+			// for transparency.  
+			var dateString = '';
+			var date_num=0; // 1-31
+			var full_year=0; // yyyy
+			var full_hour=0; // 0-24
+			var full_minute=0; // 0-59
+			var full_month=0; // 0-11
+				
+			// array for ALL objects created 
+			var arOBJS =[];
+			// array for ALL objects serialized 
+			var serialized_objs = [];
+			// key:=Value for session storage vars
+			var key = "serializedStorage";
+			var value;
+			
+			function createOne()
+			{
+				var a = Object.create(tmpOBJ);
+				a.UUID = document.getElementById('uuid').value;
+				a.Name = document.getElementById('name').value;
+				a.Val_2 = document.getElementById('val_2').value;
+				dateString = Date.now();
+				a.timeStamp = dateString;
+				
+				//debug
+				console.log("Object Created.\n");
+				console.log(dateString + '\n');
+				console.log(a);
+				//end debug 
+								
+				arOBJS.push(a);
+			}
+			function serializeMe()
+			{
+				for (i = 0;i<arOBJS.length;i++)
+				{
+					var jsonSTR = JSON.stringify(arOBJS[i]);
+					serialized_objs.push(jsonSTR);
+					//debug
+					console.log(jsonSTR + "\n");
+					//end debug
+				}
+			}
+			
+			function persistMe()
+			{
+				// just store one key:=value @ a time.
+				// illustrative purposes only
+				sessionStorage.clear();
+				sessionStorage.setItem(key,serialized_objs[0]);
+				//debug
+				console.log("Object has been stored.\n");
+				console.log("Key:= " + key + "\n");
+				console.log("Value:= " + serialized_objs[0] + "\n");
+				
+			}
+			
+			function checkStorage()
+			{
+				var itemAccessed = sessionStorage.getItem('serializedStorage');
+				//debug
+				console.log(itemAccessed);
+				// end debug
+			}
+			
+			function clearMe()
+			{
+				sessionStorage.clear();
+			}
+			
+			function renderMe()
+			{
+				var itemAccessed = sessionStorage.getItem('serializedStorage');
+				//debug
+				console.log("Item Get => " + itemAccessed + "\n");
+				var tmpOBJ = JSON.parse(itemAccessed);
+				console.log("Parsed: ");
+				console.log(tmpOBJ);
+				//end debug
+				
+				alert("UUID: => " + tmpOBJ.UUID + "\n" + "Name: " + tmpOBJ.Name + "\n" + "Val_2: " + tmpOBJ.Val_2 + "\n" + "TimeStamp: " + tmpOBJ.timeStamp + "\n");
+				
+			}
+			
+			
+			
+		</script>
+	</head>
+	<body>
+		<h2>4-14-2018 Create Object => Serialize(JSON) => Persist(sessionStorage API) => Deserialize(JSON) => **Client** Render</h2>
+		<h3>** Not necessarily the most effecient way to do this , just illustrating steps in a concise manner **</h3>
+		<hr />
+		<br />
+		<input type='button' value='[RESET]' onclick=resetReload(); />
+		<input type='button' value='[CHECK STORAGE]' onclick=checkStorage(); />
+		<input type='button' value='[CLEAR STORAGE]' onclick=clearMe(); />
+		<input type='button' value='[RENDER ITEM]' onclick=renderMe(); />
+		<p><mark>All messages will be in the "console" window during steps.</mark></p>
+		<hr />
+		<br />
+		<div id='container'>
+			<div id='inp' class='input'>
+				<span>UUID: </span><input type='textarea' rows='1' cols='20' id='uuid' />
+				<br />
+				<span>Name: </span><input type='textarea' rows='1' cols'20' id='name' />
+				<br />
+				<span>Val_2: </span><input type='textarea' rows='1' cols='20' id='val_2' />
+				<br />
+				<br />
+				<input type='button' value='[CREATE]' onclick=createOne(); /><input type='button' value='[SERIALIZE]' onclick=serializeMe(); />
+				<input type='button' value='[PERSIST]' onclick=persistMe(); />
+				
+			</div>
+			
+		</div>
+		
+	
+	</body>
+	</html>
+	
