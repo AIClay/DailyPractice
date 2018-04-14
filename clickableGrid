@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset='UTF-8' >
+		<title>4-14-2018-2</title>
+		<style type='text/css'>
+			div.cont
+			{
+				position:fixed;
+				top:200px;
+				height:500px;
+				left:5px;
+				width:1000px;
+			}
+			div.tnyBX
+			{
+				position:fixed;
+				height:10px;
+				width:10px;
+				border-style:none;
+				border-width:0px;
+				padding:0px;
+				margin:0px;
+				background-color:hsl(340,85%,50%);
+				opacity:0.7;
+			}
+		</style>
+		<script type='text/javascript'>
+			var arHistory = [];
+			function generate()
+			{
+				var tgt = document.getElementById('container');
+				tgt.innerHTML = '';
+				var newBX = '';
+				var rowID;
+				var colID;
+				for (i =0;i<10;i++) // rows
+				{
+							rowID = (i + 1);
+					
+							
+					
+						for (a=0;a<10;a++)// cols
+						{
+							colID = (a + 1);
+							 var newBX = "<div id='" + rowID + "," + colID + "' class='tnyBX' onmouseover=mouseOverEFFECT("  + rowID + "," + colID + "); onmouseout=mouseOutEFFECT("  + rowID + "," + colID + "); onclick=mouseClicked("  + rowID + "," +  colID + "); ></div>";
+							var id = (rowID + "," + colID);
+							tgt.innerHTML += newBX;
+							var tgtID = document.getElementById(id);
+							tgtID.style.top = ((i * 10) + 200) + "px";
+							tgtID.style.left = ((a * 10) + 5) + "px";
+							
+							//console.log(rowID + ' ' + colID);
+						}
+				}
+				// debug
+				console.log("Generate....");
+				
+			}
+			function mouseOverEFFECT(rowID,colID)
+			{
+				var bxID = (rowID + "," + colID);
+				var em = document.getElementById(bxID);
+				em.style.opacity = 1;
+			}
+			function mouseOutEFFECT(rowID,colID)
+			{
+				var bxID = (rowID + "," + colID);
+				var em = document.getElementById(bxID);
+				em.style.opacity = 0.7;
+			}
+			function mouseClicked(rowID,colID)
+			{
+				var bxID = (rowID + "," + colID);
+				arHistory.push(bxID);
+				var tgtMSG = document.getElementById('msg');
+				tgtMSG.innerHTML = "";
+				tgtMSG.innerHTML = "You Cicked Box: " + bxID + " ";
+				
+			}
+			function viewHist()
+			{
+				//console.log(arHistory);
+				var hist = '';
+				for (i = 0;i<arHistory.length;i++)
+				{
+					hist += arHistory[i] + "\n";
+				}
+				alert("History of Items clicked [row,col]: \n" + hist);
+			}
+			
+			
+		</script>
+	</head>
+	<body>
+		<h2>4-14-2018 -2 10x10 'clickable' grid objects</h2>
+		<h3><mark>**click an individual 'box' to view it's coordinates.**</mark></h3>
+		<hr />
+		<input type='button' value='[GEN GRID]' onclick=generate(); />
+		<input type='button' value='[VIEW HISTORY]' onclick=viewHist(); />
+		
+									
+		<hr />
+		<div id='container' class='cont'>
+			
+		</div>
+		<div id='msg'></div>
+	</body>
+	</html>
