@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset='UTF-8' >
+		<title>4-15-2018</title>
+		<style type'text/css'></style>
+		<script type='text/javascript' >
+		// 
+		// url reference: http://samples.openweathermap.org/data/2.5/weather?zip=43560,us&appid=b6907d289e10d714a6e88b30761fae22
+		// response text:  XML || JSON
+		// default response text: JSON {string} 
+		//
+			
+		// API KEY: {TESTING} => [REDACTED]
+		// API URL REFERENCE: api.openweathermap.org/data/2.5/weather?zip=94040,us
+		
+			
+		var weatherOBJ={};
+		var tgtName = '';
+		var wethr_desc = '';
+		
+			
+		function getLocalWeather()
+			{
+				
+				var zip = 0;
+				var tgt = document.getElementById('txtZip');
+				zip = tgt.value;
+				
+				var xhr = new XMLHttpRequest();
+				var rText = '';
+				//console.log("Begin XRequest ==> \n");
+				
+				xhr.onreadystatechange = function () {
+					if (this.readyState == 4 && this.status == 200) {
+								//console.log("Ready State Good....");
+								rText = this.responseText;
+								//console.log("Getting rText");
+								//console.log(rText);
+								weatherOBJ = JSON.parse(rText);
+								//console.log(rText);
+								//console.log(weatherOBJ);
+								processWeather(weatherOBJ);
+						
+					}
+				};
+				
+				//console.log("Opening API URL =>> \n");
+				xhr.open("POST","http://api.openweathermap.org/data/2.5/weather?zip=" + zip + ",us&appid=[REDACTED]",true);
+				//console.log("API URL => http://api.openweathermap.org/data/2.5/weather?zip=43560,us&appid=[REDACTED] \n");
+				//console.log("sending... \n");
+				xhr.send();
+				
+				
+			}
+			
+			function processWeather(obj)
+			{
+				var latLongSTR = {} = obj.coord
+				var lat = latLongSTR.lat;
+				var long = latLongSTR.lon;
+				
+				var tmp;
+				var tmp_min;
+				var tmp_max;
+				
+				var weather = [] = obj.weather;
+				var desc = [];
+				var descTXT  = '';
+				for (i = 0; i<weather.length;i++)
+				{
+					desc.push(weather[i].description);
+					descTXT += weather[i].description + "<br />";
+				}
+				
+				var mainOBJ = {};
+				mainOBJ = obj.main;
+				tmp = mainOBJ.temp;
+				tmp_min = mainOBJ.temp_min;
+				tmp_max = mainOBJ.temp_max;
+				
+				
+				var windOBJ = {};
+				windOBJ = obj.wind;
+				var spd = windOBJ.speed;
+				var gust = windOBJ.gust;
+				
+				var majorName = obj.name;
+				
+				var cnt = document.getElementById('container');
+				cnt.innerHTML = '';  // clear it first of any previous data....
+				
+				
+				var txt = '';
+				txt += "City: " + majorName + '<br />';
+				txt += "Lat/Long: " + lat + "," + long + "<br />";
+				txt += "Temp [Min/Max]: " + tmp + " [" + tmp_min + "/" + tmp_max + "] <br />";
+				txt += "Wind: " + spd + " Gust: " + gust + "<br />";
+				txt += "Description: <br />" + "     "  + descTXT;
+				
+				cnt.innerHTML = txt;
+				weatherOBJ = {};
+				
+				
+				// DEBUG
+				//console.log("MajorName: " + majorName);
+				//console.log("WIND: " + spd + " GUST: " + gust);
+				//console.log(desc);
+				//console.log("LAT=> " + lat + " || LON => " + long);
+				
+				
+			}
+		</script>
+	</head>
+	<body>
+	<h2>4-15-2018 Consume WebService **OpenWeatherMap.org/API** Local Weather</h2>
+	<hr />
+	<br />
+		<span>Zip Lookup:</span>&nbsp;<input type='textarea' rows='1' width='10' id='txtZip' value='43560' />&nbsp;<input type='button' value='[GET WEATHER]' onclick=getLocalWeather(); />
+	<hr />
+	<div id='container'>
+		
+	</div>
+	
+	</body>
+	</html>
