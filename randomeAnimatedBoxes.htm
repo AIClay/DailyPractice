@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset='utf-8'>
+		<title>4-16-2018</title>
+		<style type='text/css'>
+			
+			div.container
+			{
+				position:fixed;
+				left:0px;
+				top:120px;
+				height:800px;
+				width:600px;
+				background-color:white;
+				opacity:1;
+				border-style:solid;
+				border-color:black;
+				border-width:1px;
+			}
+			
+			div.bx1
+			{
+				position:fixed;
+				left:10px;
+				top:150px;
+				height:20px;
+				width:20px;
+				border-style:none;
+				opacity:1;
+				z-index:1;
+			}
+			div.bx2
+			{
+				position:fixed;
+				left:40px;
+				top:150px;
+				height:20px;
+				width:20px;
+				border-style:none;
+				opacity:1;
+				z-index:2;
+			}
+			div.bx3
+			{
+				position:fixed;
+				left:70px;
+				top:150px;
+				height:20px;
+				width:20px;
+				border-style:none;
+				opacity:1;
+				z-index:3;
+			}
+			div.bx4
+			{
+				position:fixed;
+				left:100px;
+				top:150px;
+				height:20px;
+				width:20px;
+				border-style:none;
+				opacity:1;
+				z-index:4;
+			}
+		</style>
+		<script type='text/javascript' src='webSafe.js' ></script>
+		<script type='text/javascript'>
+			// 216 'websafe' colors
+			// external file [ First 24 only for now]
+			//
+			
+			// iid's for setInterval => color change method
+			var tmrID;
+			
+			
+			var col1_ID;
+			var col2_ID;
+			var col3_ID;
+			var col4_ID;
+			
+			var spot=0;
+			
+			
+			function randomNumGen(spot)
+			{
+				
+				// 0 - 23 => 0 based idx's 
+				var min = 1
+				var val = Math.floor(Math.random(min) * Math.floor(24));
+				return val; 
+			}
+			
+			function assignNumber()
+			{
+			var prxAr = [];
+			 for (i=1;i<5;i++) // 1 to 4
+			 {
+				spot = i;
+				var retVal = randomNumGen(spot);
+				switch(i)
+				{
+					case 1:
+						col1_ID = arCols[retVal];
+						prxAr.push(col1_ID);
+						break;
+					case 2:
+						col2_ID = arCols[retVal];
+						prxAr.push(col2_ID);
+						break;
+					case 3:
+						col3_ID = arCols[retVal];
+						prxAr.push(col3_ID);
+						break;
+					case 4:
+						col4_ID = arCols[retVal];
+						prxAr.push(col4_ID);
+						break;
+					default:
+						break;
+				}
+			 }
+				//debug
+				//console.log(prxAr);
+				var em1 = document.getElementById('1');
+				em1.style.backgroundColor = prxAr[0];
+				var em2 = document.getElementById('2');
+				em2.style.backgroundColor = prxAr[1];
+				var em3 = document.getElementById('3');
+				em3.style.backgroundColor = prxAr[2];
+				var em4 = document.getElementById('4');
+				em4.style.backgroundColor = prxAr[3];
+				
+			}
+			
+			function begin()
+			{
+				tmrID = setInterval(assignNumber,250);
+				startAnims();
+			}
+			
+			function stop()
+			{
+				clearInterval(tmrID);
+				stopAnims();
+			}
+			
+			var st1 = null;
+			var animID1;
+			// vertical params
+			var beginM = 120;
+			var endM = 780;
+			var dir = "down";
+			
+			function moveUpandDown(timestamp)
+			{
+					if (beginM >= 523) {dir = "up"};
+					if (beginM <=120) {dir = "down"};
+					var em = document.getElementById('1');
+					if (!st1) st1 = timestamp;
+					progress = timestamp - st1;
+					switch(dir)
+					{
+						case "up":
+							beginM -=2;
+							em.style.top = (beginM + 'px');
+							break;
+						case "down":
+							beginM +=2;
+							em.style.top = (beginM + 'px');
+							break;
+						default:
+							break;
+					}
+				
+			 	animID1 = window.requestAnimationFrame(moveUpandDown);
+				
+			}
+			
+			var st2 = null;
+			var animID2;
+			// horizontal params
+			var beginL = 100;
+			var endL = 580;
+			var dirL = "right" // right => Increment || left => Decrement
+			
+			function moveLeftAndRight(timestamp2)
+			{
+					if (beginL >= 580) {dirL = "left"};
+					if (beginL <=100) {dirL = "right"};
+					var em = document.getElementById('4');
+					if (!st2) st2 = timestamp2;
+					progress = timestamp2 - st2;
+					switch(dirL)
+					{
+						case "right":
+							beginL +=3;
+							em.style.left = (beginL + 'px');
+							break;
+						case "left":
+							beginL -=3;
+							em.style.left = (beginL + 'px');
+							break;
+						default:
+							break;
+					}
+				animID2 = window.requestAnimationFrame(moveLeftAndRight);
+			}
+			
+			function startAnims()
+			{
+				animID1 = window.requestAnimationFrame(moveUpandDown);
+				animID2 = window.requestAnimationFrame(moveLeftAndRight);
+			}
+			
+			function stopAnims()
+			{
+				window.cancelAnimationFrame(animID1);
+				window.cancelAnimationFrame(animID2);
+			}
+		</script>
+	</head>
+	<body>
+		<h2>4-16-2018 Random animated boxes w/ random colors</h2>
+		<hr />
+		<input type='button' value='[EXT FILE TEST]' onclick=externalHitTest(); />
+		<input type='button' value='[BEGIN]' onclick=begin(); />
+		<input type='button' value='[STOP]' onclick=stop(); />
+			   
+		<hr />
+		<div id='container' class='container'>
+			<div id='1' class='bx1'></div>
+			<div id='2' class='bx2'></div>
+			<div id='3' class='bx3'></div>
+			<div id='4' class='bx4'></div>
+			
+		</div>
+	
+	</body>
+</html>
