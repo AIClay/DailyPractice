@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset='utf-8' >
+		<title>4-17-2018</title>
+		
+		<style type='text/css'>
+		
+		</style>
+		
+		<script type='text/javascript'>
+			
+			var threeByThreeBoxCoords = [
+				{"path":"M0 0, L 0 300z"}, // top line
+				{"path":"M300 0, L 300 300z"}, //right line
+				{"path":"M300 300, L 0 300z"}, // left line
+				{"path":"M0 0, L 300 0z"},
+			];
+			
+			var svgStrOpen = "<svg width=\"300\" height=\"300\" xmlns=\"http://www.w3.org/2000/svg\">";
+			var svgClose = "</svg>";
+			var pthStrOpen = "<path d=";
+			var pthStrClose = " />";
+			
+			function drawSVG()
+			{
+				var em = document.getElementById("dynamic");
+				em.innerHTML = "";
+				var strPath = "";
+				
+			for (i=0;i<threeByThreeBoxCoords.length;i++)
+			{
+				strPath += (pthStrOpen + "\"" + threeByThreeBoxCoords[i].path +  "\" stroke=\"black\" stroke-width=\"1\"></path>");
+			}	
+		
+			var strHorizontals=""; // to 290px
+			var strVerticals=""; // to 290px
+				
+			for (i =0;i<=290;i+=10)
+			{
+				switch(i)
+				{
+					case 150: // center red line
+						strHorizontals += ("<path d=\"M0 " + i + ", L 300 " + i + "z\" stroke=\"red\" stroke-width=\"1\" ></path>\n");
+						strVerticals += ("<path d=\"M" + i + " 0, L " + i + " 300z\" stroke=\"red\" stroke-width=\"1\" ></path>\n");
+						break;
+					default:
+						strHorizontals += ("<path d=\"M0 " + i + ", L 300 " + i + "z\" stroke=\"black\" stroke-width=\"1\" ></path>\n");
+						strVerticals += ("<path d=\"M" + i + " 0, L " + i + " 300z\" stroke=\"black\" stroke-width=\"1\" ></path>\n");
+						break;
+				}	
+				
+			}
+				
+				// place constructed string inside div now
+				em.innerHTML = (svgStrOpen + strPath + strHorizontals + strVerticals + svgClose + "<br />" + "<span>300x300 [PX]</span>");
+			}
+			
+			function test()
+			{
+				alert("Just a hit test placeholder...\n");
+			}
+			
+			function reset()
+			{
+				var tgt = document.getElementById('dynamic');
+				tgt.innerHTML = "";
+			}
+			
+		</script>
+		
+	</head>
+	<body>
+		<h2>4-17-2018 SVG [Graphics Drawing] Grids</h2>
+		<hr />
+		<input type='button' value='[PLACEHOLDER]' onclick=test(); />
+		<input type='button' value='[DRAW 300x300 SVG]' onclick=drawSVG(); />
+		<input type='button' value='[RESET]' onclick=reset(); />
+		<hr />
+		<div id='oneByone'> 
+		<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+			<!-- box outline -->
+			<path d="M0 0, L 0 100z" stroke="black" stroke-width="1" />
+			<path d="M100 0, L 100 100z" stroke="black" stroke-width="1" />
+			<path d="M100 100, L 0 100z" stroke="black" stroke-width="1" />
+			<path d="M0 0, L 100 0z" stroke="black" stroke-width="1" />
+			<!-- END box outline -->
+			<!-- Verticals -->
+			<path d="M10 0, L 10 100z" stroke="black" stroke-width="1" />
+			<path d="M20 0, L 20 100z" stroke="black" stroke-width="1" />
+			<path d="M30 0, L 30 100z" stroke="black" stroke-width="1" />
+			<path d="M40 0, L 40 100z" stroke="black" stroke-width="1" />
+			<path d="M50 0, L 50 100z" stroke="black" stroke-width="1" />
+			<path d="M50 0, L 50 100z" stroke="red" stroke-width="1" />
+			<path d="M60 0, L 60 100z" stroke="black" stroke-width="1" />
+			<path d="M70 0, L 70 100z" stroke="black" stroke-width="1" />
+			<path d="M80 0, L 80 100z" stroke="black" stroke-width="1" />
+			<path d="M90 0, L 90 100z" stroke="black" stroke-width="1" />
+			<!-- End Verticals -->
+			<!-- Horizontals -->
+			<path d="M0 10, L 100 10z" stroke="black" stroke-width="1" />
+			<path d="M0 20, L 100 20z" stroke="black" stroke-width="1" />
+			<path d="M0 30, L 100 30z" stroke="black" stroke-width="1" />
+			<path d="M0 40, L 100 40z" stroke="black" stroke-width="1" />
+			<path d="M0 50, L 100 50z" stroke="black" stroke-width="1" />
+			<path d="M0 50, L 100 50z" stroke="red" stroke-width="1" />
+			<path d="M0 60, L 100 60z" stroke="black" stroke-width="1" />
+			<path d="M0 70, L 100 70z" stroke="black" stroke-width="1" />
+			<path d="M0 80, L 100 80z" stroke="black" stroke-width="1" />
+			<path d="M0 90, L 100 90z" stroke="black" stroke-width="1" />
+			<!-- End Horizontals -->
+		</svg>
+		<br />
+		<span>100x100 [PX] </span>
+		</div>
+		<div id='twoBytwo' style='float:left;position:fixed;left:130px;top:25%;margin-right:3px;'>
+		<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+			<!-- box outline -->
+			<path d="M0 0, L 0 200z" stroke="black" stroke-width="1" />
+			<path d="M200 0, L 200 200z" stroke="black" stroke-width="1" />
+			<path d="M200 200, L 0 200z" stroke="black" stroke-width="1" />
+			<path d="M0 0, L 200 0z" stroke="black" stroke-width="1" />
+			<!-- END box outline -->
+			<!-- Verticals -->
+			<path d="M10 0, L 10 200z" stroke="black" stroke-width="1" />
+			<path d="M20 0, L 20 200z" stroke="black" stroke-width="1" />
+			<path d="M30 0, L 30 200z" stroke="black" stroke-width="1" />
+			<path d="M40 0, L 40 200z" stroke="black" stroke-width="1" />
+			<path d="M50 0, L 50 200z" stroke="black" stroke-width="1" />
+			<path d="M60 0, L 60 200z" stroke="black" stroke-width="1" />
+			<path d="M70 0, L 70 200z" stroke="black" stroke-width="1" />
+			<path d="M80 0, L 80 200z" stroke="black" stroke-width="1" />
+			<path d="M90 0, L 90 200z" stroke="black" stroke-width="1" />
+			<path d="M100 0, L 100 200z" stroke="red" stroke-width="1" />
+			<path d="M110 0, L 110 200z" stroke="black" stroke-width="1" />
+			<path d="M120 0, L 120 200z" stroke="black" stroke-width="1" />
+			<path d="M130 0, L 130 200z" stroke="black" stroke-width="1" />
+			<path d="M140 0, L 140 200z" stroke="black" stroke-width="1" />
+			<path d="M150 0, L 150 200z" stroke="black" stroke-width="1" />
+			<path d="M160 0, L 160 200z" stroke="black" stroke-width="1" />
+			<path d="M170 0, L 170 200z" stroke="black" stroke-width="1" />
+			<path d="M180 0, L 180 200z" stroke="black" stroke-width="1" />
+			<path d="M190 0, L 190 200z" stroke="black" stroke-width="1" />
+			<path d="M200 0, L 200 200z" stroke="black" stroke-width="1" />
+			<!-- End Verticals -->
+			<!-- Horizontals -->
+			<path d="M0 10, L 200 10z" stroke="black" stroke-width="1" />
+			<path d="M0 20, L 200 20z" stroke="black" stroke-width="1" />
+			<path d="M0 30, L 200 30z" stroke="black" stroke-width="1" />
+			<path d="M0 40, L 200 40z" stroke="black" stroke-width="1" />
+			<path d="M0 50, L 200 50z" stroke="black" stroke-width="1" />
+			<path d="M0 60, L 200 60z" stroke="black" stroke-width="1" />
+			<path d="M0 70, L 200 70z" stroke="black" stroke-width="1" />
+			<path d="M0 80, L 200 80z" stroke="black" stroke-width="1" />
+			<path d="M0 90, L 200 90z" stroke="black" stroke-width="1" />
+			<path d="M0 100, L 200 100z" stroke="red" stroke-width="1" />
+			<path d="M0 110, L 200 110z" stroke="black" stroke-width="1" />
+			<path d="M0 120, L 200 120z" stroke="black" stroke-width="1" />
+			<path d="M0 130, L 200 130z" stroke="black" stroke-width="1" />
+			<path d="M0 140, L 200 140z" stroke="black" stroke-width="1" />
+			<path d="M0 150, L 200 150z" stroke="black" stroke-width="1" />
+			<path d="M0 160, L 200 160z" stroke="black" stroke-width="1" />
+			<path d="M0 170, L 200 170z" stroke="black" stroke-width="1" />
+			<path d="M0 180, L 200 180z" stroke="black" stroke-width="1" />
+			<path d="M0 190, L 200 190z" stroke="black" stroke-width="1" />
+			<!-- End Horizontals -->
+		</svg>
+		<br />
+		<span>200x200 [PX] </span>
+		</div>
+		<div id='dynamic' style='float:left;position:fixed;left:350px;top:45%;margin-right:3px;'>
+			
+		</div>
+		
+	</body>
+</html>
