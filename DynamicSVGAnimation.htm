@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset='utf-8' >
+		<title>4-18-2018</title>
+		
+		<style type='text/css'>
+		#svg1OLD
+			{
+				box-shadow:3px 3px 5px black;
+			}
+		</style>
+		<script type='text/javascript'>
+			function start()
+			{
+					var rc1 = document.getElementById("container");
+					rc1.innerHTML = "";
+					rc1.innerHTML += "<svg id='svg1' xmlns:\"http://www.w3.org/2000/svg\" width=\"150\" height=\"50\" ><rect id='rect1' x=\"10\" y=\"15\" height=\"20\" width=\"20\" stroke=\"red\" stroke-width=\"1\" fill=\"transparent\" ><animateMotion path=\"M 0 0 H 100 Z\" dur=\"4s\" repeatCount=\"1\" ></animateMotion></rect></svg>\n";
+			}
+			function startT()
+			{
+					var t2 = document.getElementById("container");
+					t2.innerHTML = "";
+					t2.innerHTML = "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"50\" width=\"100\" style=\'background-color:black;\'>" + 
+						"<polygon points=\"0,50 25 0, 50,50\" fill=\"yellow\" stroke=\"black\" stroke-fill=\"1\" opacity=\"0.7\" >" + 
+						"<animateMotion path=\"M 0 0 H 50z\" dur=\"3s\" repeatCount=\"2\" />" + 
+				        "</polygon>" + 
+						"<polygon points=\"0,75 50 0, 75,75\" fill=\"#CCC\" stroke=\"black\" stroke-fill=\"1\" opacity=\"0.7\" >" + 
+						"<animateMotion path=\"M 0 0 H 75z\" dur=\"2s\" repeatCount=\"3\" />" + 
+						"</polygon>" + 
+						"</svg>";
+				
+
+			}
+		</script>
+		
+	</head>
+	<body>
+		<h2>4-18-2018 SVG &#60;mPath&#62; animations => MDN Reference </h2>
+		<h3>xlink deprecation (svg2.0) test chromium v60+</h3>
+		<hr />
+		<span>**Dynamic SVG ANIMATION**</span><input type='button' value='[RUN ONCE {square}]' onclick=start(); /><input type="button" value="[{Triangle}]" onclick=startT(); /><span>**Click Again To Repeat Animation**</span>
+		
+		<br />
+		<div id='container' >
+			
+		</div>
+		
+	</body>
