@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset='UTF-8' >
+		<title>4-18-2018</title>
+		
+		<style type='text/css'>
+			div.container
+			{
+				position:relative;
+				height:300px;
+				width:500px;
+				border-style:solid;
+				border-width:1px;
+				border-color:black;
+				box-shadow: 4px 7px 10px black;
+				background-color:white;
+				background-image:url("imgs/background.jpg");
+				background-size:cover;
+				
+				z-index:-1;
+			}
+			
+			
+		</style>
+		
+		<script type='text/javascript'>
+			function animCat()
+			{
+				var tgt=document.getElementById("catWar");
+				tgt.innerHTML = "";
+				tgt.innerHTML = "<animateMotion path=\"M 0 0 H 300 Z\" dur=\"2s\" repeatCount=\"1\" />";
+			}
+		</script>
+		
+	</head>
+	
+	<body>
+		<h2>4-18-2018 -2 **multi layer SVG animation**</h2>
+		<hr />
+		<input type='button' value='[BEGIN]' onclick=animCat(); />
+		<hr />
+		
+		 <div id='container' class='container'> 
+			<svg id='tstI' class='tstI' xmlns="http://www.w3.org/2000/svg">
+				<defs>
+					<filter id='sh'>
+						<feDropShadow dx="3" dy="-1" stdDeviation="2" />
+					</filter>
+				</defs>
+				<image href='imgs/bck2.jpg' height="100%" width="100%" x="-50" y="0.5" />
+				<image id='catWar'  href="imgs/catWar.png" height="100" width="200" x="-90" y="58" style="filter:url(#sh);">
+				<animateMotion path="M 0 0 H 220 z" dur="4s" repeatCount="2" />
+				</image>
+				
+			</svg>
+		 </div> 
+		
+		
+	
+	</body>
+	
