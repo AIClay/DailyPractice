@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset='UTF-8'>
+		<title>4-19-2018</title>
+		<style type='text/css'>
+			svg.img1
+			{
+				position:fixed;
+				left:100px;
+				top:160px;
+				/* border-style:solid;
+					border-width:1px;
+				 	border-color:black; */
+			}
+
+		</style>
+		<script type='text/javascript'>
+			function hitTest()
+			{
+				alert("Doesn't do anything. \n Just a hit test....");
+			}
+		</script>
+	</head>
+	<body>
+		<h2>4-19-2018 SVG Polygon *Chart [SINGLE BAR] Animation (onload=() )* </h2>
+		<h3> Refresh page to view animation again => no events wired up, ran out of time.</h3>
+		<hr />
+		<input type='button' value='[TEST]' onclick=hitTest();  />
+		<hr />
+		<svg xmlns="http://www.w3.org/2000/svg" height="300" width="500" class="img1">
+			<!-- "Floor shadow" --> 
+			<!-- <polygon points="60,00 60,250 " stroke="#ccc" stroke-width="1" fill="none"/> -->
+			<polygon points="0,300 60,250 " stroke="black" stroke-width="1" fill="none"/>
+			<polygon points="60,250 500,250 " stroke="black" stroke-width="1" fill="none"/>
+			<polygon points="1,301 61,251 501,251 461,301" stroke="black" stroke-width="1" fill="#CCC" />
+			<polygon points="0,299 461,299" stroke="black" stroke-width="1" fill="none" />
+			
+			<!-- Bar #1 -->
+				<!-- Colors {black line,shadow #CCCC00, 'light fill' => yellow -->
+				<!-- rect 1 -->
+				<polygon points="80,275 180,275 196,260 100,260" stroke="yellow" stroke-width="0.5" fill="yellow" />
+				<!-- rect 2 -->
+				<polygon points="80,75 180,75 196,60 100,60" stroke="#CCCC00" stroke-width="1" fill="#CCCC00">
+					<animate attributeType="XML" attributeName="points" from="80,275 180,275 196,260 100,260" to="80,75 180,75 196,60 100,60" dur="4.5s" repeatCount="0" />
+				</polygon>
+				<!-- 'Pillars' => for lining up purposes, not displayed purposes -->
+				<!-- <polygon points="80,75 80,275" stroke="black" stroke-width="1" fill="none" /> 
+				     <polygon points="180,275 180,75" stroke="black" stroke-width="1" fill="none" />
+				<!-- <polygon points="100,260 100,75" stroke="black" stroke-width="1" fill="none" /> hidden in isometric view -->
+				<!-- <polygon points="196,260 196,60" stroke="black" stroke-width="1" fill="none" /> -->
+				
+			
+				<!-- right fill face -->
+				<polygon points="180,275 180,75 196,60 196,260" stroke="#CCCC00" stroke-width="1" fill="#CCCC00">
+					<animate attributeType="XML" attributeName="points" from ="180,275 180,275 196,260 196,260"	to="180,275 180,75 196,60 196,260" dur="4.5s" repeatCount="0" />
+				</polygon>	
+				<!-- front fill face -->
+				<polygon points="80,275 80,75 180,75 180,275" stroke="yellow" stroke-width="1" fill="yellow">
+					<animate attributeType="XML" attributeName="points" from ="80,275 80,275 180,275 180,275"	to="80,275 80,75 180,75 180,275" dur="4.5s" repeatCount="0" />
+				</polygon>
+			<!-- END BAR 1 --> 
+			
+			<!-- Bar #2 --> 
+			<!-- BASE -->
+			<polygon points="280,175 380,175 396,160 300,160" stroke="red" stroke-width="0.5" fill="red" />
+			<!-- FRONT FACE --> 
+			<polygon points="280,275 280,175 380,175 380,275" stroke="red" stroke-width="1" fill="red" />
+			<!-- Right Face --> 
+			<polygon points="380,275 380,175 396,160 396,260 " stroke="#CC0000" stroke-width="1" fill="#CC0000" />
+			<!-- Top Face -->
+			<polygon points="280,175 380,175 396,160 300,160" stroke="#CC0000" stroke-width="1" fill="#CC0000" />
+		</svg>
+		
+	</body>
