@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset='UTF-8'>
+		<title>Testing SVG AnimFrame</title>
+		<style type='text/css'>
+		#svgCir
+			{
+				position:fixed;
+				left:300px;
+				top:35%
+			}
+			div.wtf
+			{
+				position:fixed;
+				left:0px;
+				top:0px;
+				height:600px;
+				width:600px;
+				background-color:black;
+			}
+		</style>
+		
+		<script type='text/javascript'>
+			animID = [0];
+			stTime = null;
+			x = 300;
+			xSpd = 0;  // speed of x +/-  {higher == faster} INT 
+			ySpd = 0;  // speed of y +/-  {higher == faster} INT
+			y = 300;
+			
+			function cirAnim(stTime1)
+			{
+				if (!stTime) stTime = stTime1;
+				var dir = rnd;
+				//console.log(dir);
+				//console.log(frames);
+				var em = document.getElementById('svgCir');
+					switch(dir)
+					{
+						case 1:
+							//console.log("Upper Left case 1");
+							x -=xSpd;
+							y -=ySpd;
+							if (x <= 0)
+							{
+								x = 300;
+								y = 300;
+							stopAnim();
+							}
+							if (x >= 0)
+							{
+							em.style.left = Math.min(x / 1) + 'px';
+							em.style.top = Math.min(y / 1) + 'px';
+							var aID = window.requestAnimationFrame(cirAnim);
+							animID.push(aID);
+							}
+							break;
+						case 2:
+							//console.log("Up case 2");
+							y -=xSpd;
+							x = ySpd;
+							if (y <= -50)
+							{
+								x = 300;
+								y = 300;
+			
+								
+								stopAnim();
+							}
+							if (y > -50)
+							{
+							em.style.top = Math.min(y / 1) + 'px';
+							var aID = window.requestAnimationFrame(cirAnim);
+							animID.push(aID);
+							}	
+							break;
+						case 3:
+							//console.log("Upper Right case 3 ==> PROBLEM CASE");
+							x +=xSpd;
+							y -=ySpd;
+							if (y <= 0)
+							{
+								x = 300;
+								y = 300;
+							stopAnim();
+							}
+							if (x >= 0)
+							{
+							em.style.left = Math.min(x / 1) + 'px';
+							em.style.top = Math.min(y / 1) + 'px';
+							var aID = window.requestAnimationFrame(cirAnim);
+							animID.push(aID);
+							}
+							break;
+						case 4:
+							//console.log("Right case 4");
+							x +=xSpd;
+							y = y;
+							if (x >= 650)
+							{
+								x = 300;
+								y = 300;
+			
+								
+								stopAnim();	
+							}
+							if (x < 650)
+							{
+							em.style.left = Math.min(x / 1) + 'px';
+							var aID = window.requestAnimationFrame(cirAnim);
+							animID.push(aID);
+							}
+							break;
+						case 5:
+							//console.log("Lower Right case 5");
+							x +=xSpd;
+							y +=ySpd;
+							if (y >=650)
+							{
+								x = 300;
+								y = 300;
+			
+								
+								stopAnim();
+							}
+							if (y < 650)
+							{
+							em.style.left = Math.min(x / 1) + 'px';
+							em.style.top = Math.min(y / 1) + 'px';
+							var aID = window.requestAnimationFrame(cirAnim);
+							animID.push(aID);
+							}
+							break;
+						case 6:
+							//console.log("Down case 6");
+							y +=ySpd;
+							x = x;
+							if (y >=650)
+							{
+								x = 300;
+								y = 300;
+			
+								
+								stopAnim();
+							}
+							if (y < 650)
+							{
+							em.style.top = Math.min(y / 1) + 'px';
+							var aID = window.requestAnimationFrame(cirAnim);
+							animID.push(aID);
+							}
+							break;
+						case 7:
+							//console.log("Lower Left case 7");
+							x -=xSpd;
+							y +=ySpd;
+							if (x <= -10)
+							{
+								x = 300;
+								y = 300;
+			
+								
+								stopAnim();
+							}
+							if (x > -10)
+							{
+							em.style.top = Math.min(y / 1) + 'px';
+							em.style.left = Math.min(x / 1) + 'px';
+							var aID = window.requestAnimationFrame(cirAnim);
+							animID.push(aID);
+							}
+							break;
+						case 8:
+							//console.log("Left case 8");
+							x -=xSpd;
+							y = y;
+							if (x <= -50)
+							{
+								x = 300;
+								y = 300;
+			
+								
+								stopAnim();
+							}
+							if (x > -50)
+							{
+								
+							em.style.left = Math.min(x / 1) + 'px';
+							var aID = window.requestAnimationFrame(cirAnim);
+							animID.push(aID);
+							}
+							break;
+						default:
+							x = 300;
+								y = 300;
+			
+								
+							stopAnim();
+							//console.log("Somethnig went wrong...\nCase default");
+							break;
+					}
+				
+			}
+			
+			function beginAnim()
+			{
+				rnd = rndNumGen(); 
+				xSpd = Math.floor(Math.random() * 10) + 1;
+				ySpd = Math.floor(Math.random() * 10) + 1;
+				animID.push(window.requestAnimationFrame(cirAnim));
+			}
+			
+			function stopAnim()
+			{
+				//console.log(animID);
+				for (i=0;i<animID.length;i++)
+					{
+						window.cancelAnimationFrame(animID[i]);
+			
+					}
+				x=300;
+				y=300;
+				xSpd = Math.floor(Math.random() * 10) + 1;
+				ySpd = Math.floor(Math.random() * 10) + 1; 
+				var em = document.getElementById('svgCir');
+				em.style.left = x + 'px';
+				em.style.top = y + 'px';
+				rnd=rndNumGen();
+				animID = [];
+				
+			}
+			
+			//rnd num gen
+			var rnd=0;
+			function rndNumGen()
+			{
+				var retVal = 0;
+				retVal = Math.floor(Math.random() * 8) + 1;
+				//console.log(retVal);
+				return retVal;
+			}
+			
+			//debug
+			function showXY()
+			{
+				console.log("X: " + x + " Y: " + y);
+			}
+		</script>
+		
+	</head>
+	<body>
+		<div id='wtf' class='wtf'>
+		<svg xmlns="http://www.w3.org/2000/svg" height="12" width="12" id='svgCir'>
+			<circle cx="6" cy="6" r="2" stroke="white" stroke-width="1" fill="white" />
+		</svg>
+		<br />
+		<input type="button" value='[RESTART ANIM]' onclick=beginAnim(); />
+		<input type="button" value='[STOP ANIM]' onclick=stopAnim(); />
+		<input type='button' value='[GEN RAND]' onclick=rndNumGen(); />
+									
+		</div>
+	</body>
