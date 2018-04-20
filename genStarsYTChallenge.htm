@@ -1,0 +1,124 @@
+<!DOCTYPE html>	
+	<head>
+		<meta charset='utf-8'>
+		<title>4-19-2018-2</title>
+		<style type='text/css'>
+			div.cnt
+			{
+				position:fixed;
+				left:170px;
+				top:200px;
+				height:600px;
+				width:600px;
+				border-style:solid;
+				border-color:black;
+				border-width:1px;
+				background-color:black;
+			}
+			div.star
+			{
+				position:absolute;
+				height:5px;
+				width:5px;
+				border-radius:2px;
+				background-color:white;
+				z-index:1;
+			}
+					
+		</style>
+		<script type='text/javascript'>
+			var arStars=[100];
+			var cx=0;
+			var cy=0;
+			var star = {
+				speed:0.5,
+				rndX:0,
+				rndY:0,
+				star_IID:"",
+				startD:window.performance,
+				animID:"",
+				elemID:null,
+				elem: function () { var e= document.getElementById(this.star_IID);return e;},
+				stID: function () {var retVal ="ID:"; rndNum = Math.random(); return retVal += rndNum;},
+				//test: function() {console.log(this.stID());},
+				genRndX: function () {var rndIntX = Math.floor(Math.random() * Math.floor(600) + 1);return rndIntX;},
+				genRndY: function () {var rndIntY = Math.floor(Math.random() * Math.floor(600) + 1);return rndIntY;}
+				
+			
+			}
+			
+			/*function moveLowerLeft(tStamp,obj)
+			{
+				if (!obj.startD) obj.startD = tStamp;
+				var em = document.getElementById("" + obj.star_IID + "");
+				em.style.left += 1 + "px";
+				console.log(em.style.left);
+				window.requestAnimationFrame(moveLowerLeft(tStamp,obj));
+			}*/ 
+				
+			
+			
+				
+			function hitTest()
+			{
+				//console.log(arStars);
+				//console.log(arStars[1]);
+			
+				
+			}
+			
+			function init()
+			{
+					for (i =0;i<100;i++)
+					{
+						
+						var b = Object.create(star);
+						b.rndX = b.genRndX();
+						b.rndY = b.genRndY();
+						b.star_IID = b.stID();
+						arStars[i] = b;
+					}
+				populate(arStars);
+			}
+			
+			function showName(starID)
+			{
+				console.log(starID);
+			}
+			
+			
+			function populate(theStars)
+			{
+				var tgt = document.getElementById('container');
+				
+				for(i=0;i<arStars.length;i++)
+				{
+					var star = document.createElement("div");
+					var tgtOBJ = theStars[i];
+					star.setAttribute("id",tgtOBJ.star_IID);
+					star.setAttribute("class","star");
+					star.setAttribute("onclick","showName(this.id)");
+					star.style.left = tgtOBJ.rndX + "px";
+					star.style.top = tgtOBJ.rndY + "px";
+					tgt.appendChild(star);	
+					var elem = document.getElementById(theStars[i].star_IID);
+					tgtOBJ.elemID = elem;
+					arStars[i] = theStars[i];
+					
+				}
+			}
+			
+		</script>
+	
+	</head>
+	<body >
+		<h2>4-19-2018 -2 **starry field - no time challenge => CodingTrain YouTube.com**</h2>
+		<h2>BEGIN-> 4:51pm EST</h2>
+		<h2>no external libraries</h2>
+		<hr />
+		<input type='button' value='[GENERATE]' onclick=init(); />
+			<hr/>
+		<div id='container' class='cnt'>
+			
+		</div>
+	</body>
