@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset="UTF-8">
+		<title>WTF</title>
+		<style type='text/css'>			
+			div.wtf
+			{
+				position:relative;
+				top:0px;
+				left:-1px;
+				height:600px;
+				width:600px;
+				background-color:black;
+			}
+			div.star
+			{
+				position:fixed;
+				top:299px;
+				left:299px;
+				height:5px;
+				width:5px;
+				border-style:solid;
+				border-color:white;
+				border-radius:5px;
+				background-color:white;
+			}
+			
+				.rght
+			{
+				position:absolute;
+				top:10px;
+				right:20px;
+				
+			}
+			.rght2
+			{
+				position:absolute;
+				top:40px;
+				right:20px;
+				
+			}
+			
+			.rght3
+			{
+				position:absolute;
+				top:70px;
+				right:20px;
+				
+			}
+			.rght4
+			{
+				position:absolute;
+				top:100px;
+				right:20px;
+				
+			}
+			.rght5
+			{
+				position:absolute;
+				top:130px;
+				right:20px;
+				
+			}
+			#svgH
+			{
+				position:fixed;
+				z-index:9999;
+			}
+		</style>
+		
+		<script type='text/javascript'>
+		var start=null; // anim timer start
+		var animID=null; //anim id for cancel animation
+		var arAnimID=[];
+		var star= {    // object to hold 'star' information {single}
+			x:300,
+			y:305,
+			cx:0,
+			cy:0,
+			IID:1,
+			animID:null,
+			startTimer:window.performance//as object
+		}; 
+		var arStars=[];
+			
+		function showID(name)
+			{
+				//console.log(name);
+			}
+			
+		function drawSingleStar()
+			{
+				arStars = [];
+				try {
+				var em = document.getElementById('wtf');
+				var tgt = document.createElement('div');
+				tgt.setAttribute("class","star");
+				tgt.setAttribute("id","st_" + 1);
+				//tgt.setAttribute("onclick","showID(this.id)");
+				em.appendChild(tgt);
+				var st1 = Object.create(star);
+				st1.x = 300;
+				st1.y = 305;
+				st1.cx = st1.x;
+				st1.cy = st1.y;
+				
+				arStars.push(st1);
+				//console.log(arStars);
+				//console.log("Draw star...\n");		
+				}
+				catch(e) {
+					console.log(e);
+					resetMe();
+				}
+			}
+			
+			
+			
+			
+			
+			
+			
+			function moveUpperLeft(tStamp)
+			{
+				//console.log("Draw move U L...\n");		
+			try {
+				var obj = arStars[0];
+				if (!obj.startTimer) obj.startTimer = tStamp;
+				obj.cx = (obj.x - 1) + "px";
+				obj.x = (obj.x -1);
+				obj.cy = (obj.y -1) + "px";
+				obj.y = (obj.y -1);
+				if (obj.x < 0)
+				{
+					var cancel = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+					cancel(obj.animID);
+					var rem = document.getElementById("st_" + obj.IID +"");
+					var cnt = document.getElementById("wtf");
+					cnt.removeChild(rem);
+					resetMe(); // for demonstration purposes only. 
+				}
+				if (obj.x > 0)
+				{
+				var tgt = document.getElementById("st_" + obj.IID + "");
+				tgt.style.left = obj.cx;
+				tgt.style.top = obj.cy;
+				obj.animID = window.requestAnimationFrame(moveUpperLeft);
+				arAnimID.push(animID);
+				arStars[0] = obj;
+				}
+			}
+				catch(e)
+				{
+					//console.log(e);
+					restMe();
+				}
+					
+			}
+			function moveUpperRight(tStamp)
+			{
+								//console.log("Draw move U R...\n");		
+				try { 
+				var obj = arStars[0];
+				if (!obj.startTimer) obj.startTimer = tStamp;
+				obj.cx = (obj.x +1) + "px";
+				obj.x = (obj.x +1);
+				obj.cy = (obj.y -1) + "px";
+				obj.y = (obj.y -1);
+				
+				if (obj.x >= 600 || obj.y <=0)
+				{
+					var cancel = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+					cancel(obj.animID);
+					var rem = document.getElementById("st_" + obj.IID +"");
+					var cnt = document.getElementById("wtf");
+					cnt.removeChild(rem);
+					resetMe(); // for demonstration purposes only. 
+				}
+				if (obj.x > 0)
+				{
+				var tgt = document.getElementById("st_" + obj.IID + "");
+				tgt.style.left = obj.cx;
+				tgt.style.top = obj.cy;
+				obj.animID = window.requestAnimationFrame(moveUpperRight);
+				arAnimID.push(animID);
+				arStars[0] = obj;
+				}
+				}
+				catch(e)
+				{ 
+					console.log(e);
+					resetMe();
+				}
+				
+			}
+			//lower left
+			function moveLowerLeft(tStamp)
+			{
+								//console.log("Draw move L L...\n");		
+				try {
+				var obj = arStars[0];
+				if (!obj.startTimer) obj.startTimer = tStamp;
+				obj.cx = (obj.x - 1) + "px";
+				obj.x = (obj.x -1);
+				obj.cy = (obj.y +1) + "px";
+				obj.y = (obj.y +1);
+				if (obj.y >= 600 || obj.x <=3)
+				{
+					var cancel = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+					cancel(obj.animID);
+					var rem = document.getElementById("st_" + obj.IID +"");
+					var cnt = document.getElementById("wtf");
+					cnt.removeChild(rem);
+					resetMe(); // for demonstration purposes only. 
+				}
+				if (obj.y < 600)
+				{
+				var tgt = document.getElementById("st_" + obj.IID + "");
+				tgt.style.left = obj.cx;
+				tgt.style.top = obj.cy;
+				obj.animID = window.requestAnimationFrame(moveLowerLeft);
+				arAnimID.push(animID);
+				arStars[0] = obj;
+				}
+				}
+				catch(e)
+				{
+					console.log(e);
+					resetMe();
+				}
+				
+			}
+			
+			
+			//lower right
+			function moveLowerRight(tStamp)
+			{
+								//console.log("Draw move L R...\n");		
+				try {
+				var obj = arStars[0];
+				if (!obj.startTimer) obj.startTimer = tStamp;
+				obj.cx = (obj.x +1) + "px";
+				obj.x = (obj.x +1);
+				obj.cy = (obj.y +1) + "px";
+				obj.y = (obj.y +1);
+				
+				if (obj.x >= 600 || obj.y > 300)
+				{
+					var cancel = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+					cancel(obj.animID);
+					var rem = document.getElementById("st_" + obj.IID +"");
+					var cnt = document.getElementById("wtf");
+					cnt.removeChild(rem);
+					resetMe(); // for demonstration purposes only. 
+				}
+				if (obj.y > 300)
+				{
+				var tgt = document.getElementById("st_" + obj.IID + "");
+				tgt.style.left = obj.cx;
+				tgt.style.top = obj.cy;
+				obj.animID = window.requestAnimationFrame(moveLowerRight);
+				arAnimID.push(animID);
+				arStars[0] = obj;
+				}
+				}
+				catch(e)
+				{
+					console.log(e);
+					resetMe();
+				}
+			}
+			
+			
+			
+			function resetMe()
+			{
+				//console.log("reset me...\n");
+				try {
+				
+				
+				var obj = arStars[0];
+					
+					try {
+				var cancel = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+				cancel(obj.animID);
+				var cnt = document.getElementById("st_1").remove();
+					}
+					catch(e)
+					{
+						//just catch error.
+						
+						Begin();
+					}
+				obj.x = 300;
+				obj.y = 305;
+				obj.cx = "300px";
+				obj.cy = "305px";
+				obj.animID = null;
+				
+				arStars=[];
+				stopAnims(arAnimID);
+				animID  = null;
+				Begin();
+				}
+				catch(e)
+				{
+					//console.log(e);
+					resetMe();
+				}
+			}
+			
+			function stopAnims(anims)
+			{
+				for (i=0;i<anims.length;i++)
+				{
+				var cancel = window.cancelAnimationFrame || window.mozCancelAnimationFrame;
+				cancel(anims[i]);
+				}
+				arAnimID =[];
+			}
+			
+			
+			// random num gens {dirs} => "1","2","3","4";
+			// entry point [Main func to begin loop] 
+			// 
+			function rndGenDirections()
+			{
+				try { 
+				var retVal = 0;
+				retVal = Math.floor(Math.random() * 4) + 1;
+				//debug
+				//console.log(retVal);
+				//end debug
+				return retVal;
+				}
+			catch(e)
+			{
+				console.log(e);
+				resetMe();
+				
+			}
+			}
+			
+			// ENTRY POINT
+			function Begin()
+			{
+				drawSingleStar();
+				var tStamp = window.performance;
+				var rnd = rndGenDirections();
+				switch (rnd)
+				{
+					case 1:
+						//ul
+						moveUpperLeft(tStamp);
+						break;
+					case 2:
+						//ur
+						
+						moveUpperRight(tStamp);
+						break;
+					case 3:
+						//ll
+						
+						moveLowerLeft(tStamp);
+						break;
+					case 4:
+						
+						moveLowerRight(tStamp);
+					default:
+						break;
+				}
+			}
+			
+			
+			// END ENTRY POINT
+			
+		</script>
+		
+	</head>
+
+	<body>
+		
+		<div id='wtf' class='wtf'>
+			<!-- <div id='st1' class='star'></div> -->
+		<svg id="svgCross" xmlns="http://www.w3.org/2000/svg" height="600" width="600">
+				<line x1="0" y1="300" x2="600" y2="300" stroke="yellow" stroke-width="1" />
+				<line x1="299" y1="0" x2="299" y2="599" stroke="yellow" stroke-width="1" />
+		</svg>
+			
+		</div>
+		<input type='button' value='[DRAW STAR]' onclick=drawSingleStar(); class='rght' />
+		<br / >
+		<input type='button' value='[MOVE U_L]' onclick=moveUpperLeft(window.performance); class='rght2' />
+		<br />
+		<input type='button' value='[MOVE U_R]' onclick=moveUpperRight(window.performance); class='rght3' />
+		<br />
+		<input type='button' value='[MOVE L_L]' onclick=moveLowerLeft(window.performance); class='rght4' />
+		<br />
+		<input type='button' value='[MOVE L_R]' onclick=moveLowerRight(window.performance); class='rght5' />
+		<br />
+		<input type="button" value='[DANGEROUS]' onclick=Begin(); />
+		
+		
+	</body>
+</html>
+	
+	
