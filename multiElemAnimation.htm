@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset='utf-8' >
+		<title>testing multi elem single update call</title>
+		<style type='text/css'>
+		div.box
+			{
+				position:absolute;
+				height:10px;
+				width:10px;
+				left:0px;
+				top:0px;
+				background-color:black;
+				border-radius:10px;
+				border-style:none;
+				border-width:0px;
+				margin:0px;
+				padding:0px;
+				
+			}
+		</style>
+		<script type='text/javascript'>
+		var arItems = [];
+		var elems = [];
+		var item = {
+				name:"name_",
+				get_name: function () {
+							return this.iid;
+				},
+				iid:0,
+				x:0,
+				y:0,
+				xSpd:0,
+				ySpd:0,
+				html_desc:"",
+				direction:0
+			}
+	
+		function genTen()
+		{
+			var tgt = document.getElementById('tgt');
+			tgt.innerHTML = "";
+			for (i=0;i<10;i++)
+			{
+				var x = {};
+				x = Object.create(item);
+				x.name += Math.random();
+				x.iid = Math.random();
+				x.x = Math.floor(Math.random() *500) +60;
+				x.y = Math.floor(Math.random() * 500) +60;
+				x.cx = x.x;
+				x.cy = x.y;
+				x.direction = Math.floor(Math.random() * 4) + 1;
+				x.html_desc += "<div id=\"" + x.name + "\" class=\"box\"></div>";
+				x.xSpd = Math.floor(Math.random() * 5) + 3;
+				x.ySpd = Math.floor(Math.random() * 5) + 3;
+				tgt.innerHTML += x.html_desc;
+				var local = document.getElementById("" + x.name + "");
+				local.style.left = x.x + 'px';
+				local.style.top = x.y + 'px';
+				arItems.push(x);
+				elems.push(local);
+				
+			}
+			
+			
+		}
+			
+		function getNames()
+			{
+				arItems = [];
+				elems =[];
+				for (a=0;a<arItems.length;a++)
+				{
+					var obj = {};
+					obj = arItems[a];
+					var retName = obj.get_name();
+				}
+			}
+			
+			var start = null;
+			var ticks = 450;
+			var animID = null;
+			function moveThemLeft()
+			{
+				if (!start) start = window.performance;
+		
+				ticks--;
+				
+				
+					
+				for (b = 0;b<elems.length;b++)
+				{
+					
+					var obj = arItems[b];
+					var elem = elems[b];
+					
+					switch(obj.direction)
+					{
+						case 1:
+							// left
+							obj.x -=obj.xSpd;
+							obj.cx = obj.x;
+							var elem = document.getElementById("" + obj.name + "");
+							elem.style.left = obj.cx + 'px';
+							elems[b] = elem; // replace the element;
+							arItems[b] = obj; // replace obj AFTER values updated. 
+							break;
+						case 2:
+							// right
+							obj.x +=obj.xSpd;
+							obj.cx = obj.x;
+							var elem = document.getElementById("" + obj.name + "");
+							elem.style.left = obj.cx + 'px';
+							elems[b] = elem; // replace the element;
+							arItems[b] = obj; // replace obj AFTER values updated. 
+							break;
+						case 3:
+							// down
+							obj.y +=obj.ySpd;
+							obj.cy = obj.y;
+							var elem = document.getElementById("" + obj.name + "");
+							elem.style.top = obj.cy + 'px';
+							elems[b] = elem; // replace the element;
+							arItems[b] = obj; // replace obj AFTER values updated. 
+							break;
+						case 4:
+							// up
+							obj.y -=obj.ySpd;
+							obj.cy = obj.y;
+							var elem = document.getElementById("" + obj.name + "");
+							elem.style.top = obj.cy + 'px';
+							elems[b] = elem; // replace the element;
+							arItems[b] = obj; // replace obj AFTER values updated. 
+							break;
+						default:
+							break;
+					}
+						
+				}
+				
+					if (ticks>=0)
+					{
+						animID= window.requestAnimationFrame(moveThemLeft);
+						//console.log(ticks);
+					}
+					if (ticks<=0)
+					{
+						reset();			
+					}
+				
+			}
+			
+			function begin()
+			{
+				animID = window.requestAnimationFrame(moveThemLeft);
+			}
+			function reset()
+			{
+				var target = document.getElementById("tgt");
+				target.innerHTML = "";
+				animID=null;
+				ticks=450;
+				
+			}
+			
+			
+		
+		</script>
+	</head>
+	<body>
+	<input type='button' value='[GENTEN]' onclick=genTen(); />
+	<input type='button' value='[GET NAMES]' onclick=getNames(); />
+	<input type='button' value='[MOVE THEM]' onclick=begin(); />
+		   
+	<div id='tgt' class='container'>
+		
+	
+	</div>
+	
+	
+	</body>
