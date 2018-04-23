@@ -3,6 +3,10 @@
 		<meta charset='utf-8' >
 		<title>testing multi elem single update call</title>
 		<style type='text/css'>
+		body
+			{
+				background-color:black;
+			}
 		div.box
 			{
 				position:absolute;
@@ -10,18 +14,23 @@
 				width:10px;
 				left:0px;
 				top:0px;
-				background-color:black;
+				background-color:white;
 				border-radius:10px;
 				border-style:none;
 				border-width:0px;
 				margin:0px;
 				padding:0px;
-				
+				box-shadow:2px 2px 2px grey;
 			}
 		</style>
+		<!-- Array of web safe colors -->
+		<script type='text/javascript' src='webSafe.js'></script>
+		<!-- End Web Safe External --> 
 		<script type='text/javascript'>
 		var arItems = [];
 		var elems = [];
+		var h_width = 0;
+		var v_height = 0;
 		var item = {
 				name:"name_",
 				get_name: function () {
@@ -33,35 +42,56 @@
 				xSpd:0,
 				ySpd:0,
 				html_desc:"",
-				direction:0
+				direction:0,
+				heigth:0,
+				width:0,
+				bgColor:''
 			}
-	
+		// debug
+		var arDirections=[];
+		// end debug
 		function genTen()
 		{
 			var tgt = document.getElementById('tgt');
 			tgt.innerHTML = "";
-			for (i=0;i<10;i++)
+			h_width = (window.innerWidth);
+			v_height = (window.innerHeight);
+			
+			for (i=0;i<1;i++) // original val:=220 [~1000 == MAX For Rasp. PI v3] 
 			{
 				var x = {};
+				var rndSize = Math.floor(Math.random() * 30) + 10;
+				var rndColor = Math.floor(Math.random() * 11) + 1;
 				x = Object.create(item);
 				x.name += Math.random();
 				x.iid = Math.random();
-				x.x = Math.floor(Math.random() *500) +60;
-				x.y = Math.floor(Math.random() * 500) +60;
+				x.x = Math.floor(Math.random() * h_width) +60;
+				x.y = Math.floor(Math.random() * v_height) +60;
 				x.cx = x.x;
 				x.cy = x.y;
-				x.direction = Math.floor(Math.random() * 4) + 1;
+				//x.direction = Math.floor(Math.random() * 8) + 1; // cardinals [N,S,E,W,NW,NE,SE,SW];
+				x.direction = 1;
+				arDirections.push(x.direction);
 				x.html_desc += "<div id=\"" + x.name + "\" class=\"box\"></div>";
-				x.xSpd = Math.floor(Math.random() * 5) + 3;
+				x.xSpd = Math.floor(Math.random() * 7) + 3;
 				x.ySpd = Math.floor(Math.random() * 5) + 3;
 				tgt.innerHTML += x.html_desc;
 				var local = document.getElementById("" + x.name + "");
 				local.style.left = x.x + 'px';
 				local.style.top = x.y + 'px';
+				local.style.height = rndSize + 'px';
+				x.height = rndSize;
+				local.style.width = rndSize + 'px';
+				x.width = rndSize;
+				local.style.borderRadius = (rndSize + 'px');
+				local.style.backgroundColor=arCols[rndColor];
+				x.bgColor = arCols[rndColor];
 				arItems.push(x);
 				elems.push(local);
 				
 			}
+			
+			//begin();
 			
 			
 		}
@@ -81,20 +111,36 @@
 			var start = null;
 			var ticks = 450;
 			var animID = null;
+			var blipBlop =0;
+			
+			// experimental
+			
+			
 			function moveThemLeft()
 			{
 				if (!start) start = window.performance;
 		
 				ticks--;
+							switch(blipBlop)
+							{
+								case 0:
+									blipBlop = 1;
+									break;
+									
+								case 1:
+									blipBlop = 0;
+									break;
+									
+								default:
+									break;
+							}
 				
 				
-					
 				for (b = 0;b<elems.length;b++)
 				{
 					
 					var obj = arItems[b];
 					var elem = elems[b];
-					
 					switch(obj.direction)
 					{
 						case 1:
@@ -103,8 +149,36 @@
 							obj.cx = obj.x;
 							var elem = document.getElementById("" + obj.name + "");
 							elem.style.left = obj.cx + 'px';
+							if (blipBlop == 0)
+							{
+								
+								elem.style.left = obj.cx + 'px';
+								var newX_Halved = Math.floor(obj.width / 2) + 'px';
+								obj.width = Math.floor(obj.width / 2); 
+								var newY_Halved = Math.floor(obj.height / 2) + 'px';
+								obj.height = Math.floor(obj.height / 2); 
+								elem.style.height = newY_Halved;
+								elem.style.width = newX_Halved;
+								
+								
+							}
+							if (blipBlop == 1)
+							{
+								
+								var newX_Doubled = (obj.width * 2) + 'px';
+								obj.width = Math.floor(obj.width * 2); 
+								var newY_Doubled = Math.floor(obj.height * 2) + 'px';
+								obj.height = Math.floor(obj.height * 2); 
+								elem.style.height = newY_Halved;
+								elem.style.width = newX_Halved;
+								elem.style.height = newY_Doubled;
+								elem.style.width = newX_Doubled;
+								
+							}
 							elems[b] = elem; // replace the element;
 							arItems[b] = obj; // replace obj AFTER values updated. 
+							
+							
 							break;
 						case 2:
 							// right
@@ -112,6 +186,7 @@
 							obj.cx = obj.x;
 							var elem = document.getElementById("" + obj.name + "");
 							elem.style.left = obj.cx + 'px';
+			
 							elems[b] = elem; // replace the element;
 							arItems[b] = obj; // replace obj AFTER values updated. 
 							break;
@@ -133,7 +208,55 @@
 							elems[b] = elem; // replace the element;
 							arItems[b] = obj; // replace obj AFTER values updated. 
 							break;
-						default:
+						case 5:
+							// Upper Left
+							obj.y -=obj.ySpd;
+							obj.cy = obj.y;
+							obj.x -=obj.xSpd;
+							obj.cx = obj.x;
+							var elem = document.getElementById("" + obj.name + "");
+							elem.style.top = obj.cy + 'px';
+							elem.style.left = obj.cx + 'px';
+							elems[b] = elem; // replace the element;
+							arItems[b] = obj; // replace obj AFTER values updated. 
+							break;
+						case 6:
+							// Upper Right
+							obj.y -=obj.ySpd;
+							obj.cy = obj.y;
+							obj.x +=obj.xSpd;
+							obj.cx = obj.x;
+							var elem = document.getElementById("" + obj.name + "");
+							elem.style.top = obj.cy + 'px';
+							elem.style.left = obj.cx + 'px';
+							elems[b] = elem; // replace the element;
+							arItems[b] = obj; // replace obj AFTER values updated. 
+							break;
+						case 7:
+							// Lower Right
+							obj.y +=obj.ySpd;
+							obj.cy = obj.y;
+							obj.x +=obj.xSpd;
+							obj.cx = obj.x;
+							var elem = document.getElementById("" + obj.name + "");
+							elem.style.top = obj.cy + 'px';
+							elem.style.left = obj.cx + 'px';
+							elems[b] = elem; // replace the element;
+							arItems[b] = obj; // replace obj AFTER values updated. 
+							break;
+						case 8:
+							// Lower Left
+							obj.y +=obj.ySpd;
+							obj.cy = obj.y;
+							obj.x -=obj.xSpd;
+							obj.cx = obj.x;
+							var elem = document.getElementById("" + obj.name + "");
+							elem.style.top = obj.cy + 'px';
+							elem.style.left = obj.cx + 'px';
+							elems[b] = elem; // replace the element;
+							arItems[b] = obj; // replace obj AFTER values updated. 
+							break;
+						default: // don't do anything= > Just trap it.
 							break;
 					}
 						
@@ -142,7 +265,7 @@
 					if (ticks>=0)
 					{
 						animID= window.requestAnimationFrame(moveThemLeft);
-						//console.log(ticks);
+						
 					}
 					if (ticks<=0)
 					{
@@ -162,16 +285,17 @@
 				animID=null;
 				ticks=450;
 				
+				window.location = window.location;
 			}
 			
 			
 		
 		</script>
 	</head>
-	<body>
-	<input type='button' value='[GENTEN]' onclick=genTen(); />
-	<input type='button' value='[GET NAMES]' onclick=getNames(); />
-	<input type='button' value='[MOVE THEM]' onclick=begin(); />
+	<body  onload=genTen(); >
+	<!-- <input type='button' value='[GENTEN]' onclick=genTen(); />
+	<input type='button' value='[GET NAMES]' onclick=getNames(); />  --> 
+	<input type='button' value='[MOVE THEM]' onclick=begin(); /> 
 		   
 	<div id='tgt' class='container'>
 		
