@@ -57,7 +57,7 @@
 			h_width = (window.innerWidth);
 			v_height = (window.innerHeight);
 			
-			for (i=0;i<1;i++) // original val:=220 [~1000 == MAX For Rasp. PI v3] 
+			for (i=0;i<25;i++) // original val:=220 [~1000 == MAX For Rasp. PI v3] 
 			{
 				var x = {};
 				var rndSize = Math.floor(Math.random() * 30) + 10;
@@ -69,8 +69,8 @@
 				x.y = Math.floor(Math.random() * v_height) +60;
 				x.cx = x.x;
 				x.cy = x.y;
-				//x.direction = Math.floor(Math.random() * 8) + 1; // cardinals [N,S,E,W,NW,NE,SE,SW];
-				x.direction = 1;
+				x.direction = Math.floor(Math.random() * 8) + 1; // cardinals [N,S,E,W,NW,NE,SE,SW];
+				//x.direction = 1;
 				arDirections.push(x.direction);
 				x.html_desc += "<div id=\"" + x.name + "\" class=\"box\"></div>";
 				x.xSpd = Math.floor(Math.random() * 7) + 3;
@@ -91,7 +91,7 @@
 				
 			}
 			
-			//begin();
+			begin();
 			
 			
 		}
@@ -149,7 +149,7 @@
 							obj.cx = obj.x;
 							var elem = document.getElementById("" + obj.name + "");
 							elem.style.left = obj.cx + 'px';
-							if (blipBlop == 0)
+							/*if (blipBlop == 0)
 							{
 								
 								elem.style.left = obj.cx + 'px';
@@ -174,7 +174,7 @@
 								elem.style.height = newY_Doubled;
 								elem.style.width = newX_Doubled;
 								
-							}
+							}*/
 							elems[b] = elem; // replace the element;
 							arItems[b] = obj; // replace obj AFTER values updated. 
 							
@@ -294,8 +294,8 @@
 	</head>
 	<body  onload=genTen(); >
 	<!-- <input type='button' value='[GENTEN]' onclick=genTen(); />
-	<input type='button' value='[GET NAMES]' onclick=getNames(); />  --> 
-	<input type='button' value='[MOVE THEM]' onclick=begin(); /> 
+	<input type='button' value='[GET NAMES]' onclick=getNames(); />  
+	<input type='button' value='[MOVE THEM]' onclick=begin(); /> --> 
 		   
 	<div id='tgt' class='container'>
 		
