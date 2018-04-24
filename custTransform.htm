@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+	<head>
+		<title>4-24-2018</title>
+		<meta charset='utf-8' >
+		<style type='text/css'>
+			#svg1
+			{
+				position:fixed;
+				left:200px;
+				top:350px;
+				border-style:solid;
+				border-color:black;
+				border-width:1px;
+			}
+		</style>
+		<script type='text/javascript'>
+			// reference for polygon lines: http://tommaitland.net/graphpaper/
+			// 
+			
+			function scaleX(rngVal)
+			{
+				// change x, keep y
+				// rng1 = x
+				var tgt_svg = document.getElementById("svg1");
+				var tgt_scaleY = document.getElementById("rng2");
+				var tgt_scaleX = document.getElementById("rng1");
+				
+				// for dispaly purposes:
+				var tgt_show = document.getElementById("showRng1");
+				tgt_show.innerHTML = rngVal;
+				
+				tgt_svg.style.transform = "scale()";
+				tgt_svg.style.transform = "scale(" + rngVal + "," + tgt_scaleY.value + ")";
+				console.log('scaleX');
+				
+				
+			}
+			function scaleY(rngVal)
+			{
+				// change y, keep x 
+				// rng2 = y 
+				var tgt_svg = document.getElementById("svg1");
+				var tgt_scaleY = document.getElementById("rng2");
+				var tgt_scaleX = document.getElementById("rng1");
+				
+				// for dispaly purposes:
+				var tgt_show = document.getElementById("showRng2");
+				tgt_show.innerHTML = rngVal;
+				
+				tgt_svg.style.transform = "scale()";
+				tgt_svg.style.transform = "scale(" + tgt_scaleX.value + "," + rngVal + ")";
+				console.log('scaleY');
+				
+			}
+				
+			
+		</script>
+	</head>
+	<body>
+		<h2>4-24-2018</h2>
+		<hr />
+		<h3> Messing about with dynamic transform properties</h3>
+		<hr />
+		
+		<div id='container'>
+			<span>ScaleX value [factor]: </span><input type='range' min='1' max='10' id='rng1' value='1' name='rng1' oninput=scaleX(this.value);  />	
+			<span id='showRng1'>1</span><br />
+			<span>ScaleY value [factor]: </span><input type='range' min='1' max='10' id='rng2' value='1' name='rng2' oninput=scaleY(this.value);  />	
+			<span id='showRng2'>1</span>
+		</div>
+		<div id='svgArea'>
+			<svg xmlns="http://www.w3.org/2000/svg" height="400" width="400" id="svg1">
+				<polygon points="0,108 142,106, 142,0 250,0 250,108 400,108 400,234 250,235 251,400 142,400 142,234 0,232 0,108" stroke="black" stroke-width="1" fill="none" />
+				
+			</svg>
+		</div>
+	
+	
+	</body>
+	
+			
