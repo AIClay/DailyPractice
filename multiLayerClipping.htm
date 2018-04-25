@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+	<head>
+		<meta charset="UTF-8" >
+		<title>4-25-2018-2</title>
+		<link href="https://fonts.googleapis.com/css?family=Gaegu|Raleway" rel="stylesheet">
+		
+		<style tyle='text/css'>
+			/* Usage: font-family: 'Gaegu', cursive;
+					  font-family: 'Raleway', sans-serif; */
+			.svgFont
+			{
+				position:absolute;
+				margin-left:5px;
+				margin-top:5px;
+				font-family:"Gaegu",cursive;
+				font-size:1em;
+				color:black;
+				font-weight:bold;
+				top:10px;
+				
+			}
+			.SVG_E
+			{
+				position:absolute;
+				left:20%;
+				top:20%;
+				height:35px;
+				width:45px;
+				z-index:3;
+			}
+			
+			.SVG_back
+			{
+				position:absolute;
+				left:20.5%;
+				top:20%;
+				height:55px;
+				width:45px;
+				background-image:url("imgs/back30.jpg");
+				z-index:1;
+			}
+			.SVG_2
+			{
+				position:absolute;
+				height:50px;
+				width:50px;
+				font-family:"Raleway",sans-serif;
+				font-size:8px;
+				font-weight:normal;
+				
+			}
+			.svgTXT
+			{
+				position:fixed;
+				left:20%;
+				top:10%;
+				z-index:2;
+			}
+				
+		</style>
+		
+		
+		<script type='text/javascript'>
+		
+		</script>
+	</head>
+	<body>
+		<svg xmlns="http://www.w3.org/2000/svg"  class='SVG_E'>
+			<text x="1" y="16" class="svgFont" >Test</text>
+		</svg>
+		<svg xmlns="http://wwww.w3.org/2000/svg" class='SVG_back' >
+			<defs>
+				<clipPath id='clipCir'>
+					<circle cx="13" cy="7" r="10" />		
+				</clipPath>
+			</defs>
+			<image href="imgs/back30.jpg" height="25" width="25"  clip-path="url(#clipCir)" opacity="0.75"/>	
+			
+		</svg>
+		<svg xmlns="http://www.w3.org/2000/svg" height="40" width="35" class='svgTXT'>
+			<text class='SVG_2' x="13" y="30" stroke="yellow" >test 2</text>
+		</svg>
+	</body>
