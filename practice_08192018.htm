@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+	<head>
+	<meta charset="UTF-8" >
+	<title>Practicing up chops</title>
+	</head>
+	<style type='text/css'>
+		span.tstDSC
+		{
+			font-family:"Verdana";
+			font-size:1.2em;
+			font-weight:bold;
+			color:black;
+			text-decoration:underline;
+			text-shadow:3px 4px 9px grey;
+			visibility:visible;
+		}
+	</style>
+	<script type='text/javascript'>
+	
+		var defOBJ = {
+			iid:0,
+			name:'',
+			stamp:"##/##/#####",
+			url:'',
+			htmlDescript:""
+		}
+		var objs = [];
+		
+		function init()
+		{
+		var b = Object.create(defOBJ);
+		b.iid = Math.random();
+		b.name = 'test name';
+		b.stamp = '01/01/1999';
+		b.url = 'www.google.com';
+		b.htmlDescript = "<div onclick=hideMe(" + b.iid + "); ><span id='" + b.iid + "' class='tstDSC'>" + b.name + "</span></div>";
+		objs[0] = b;
+		
+		}
+		
+		function showThem()
+		{
+			init();
+			var tgt = document.getElementById('inputHere');
+			tgt.innerHTML = "";
+			
+			tgt.innerHTML = objs[0].htmlDescript;
+			
+			
+		}
+		
+		function hideMe(iid)
+		{
+	
+			var ids = [];
+			for (i=0;i<objs.length;i++)
+			{
+				var em = document.getElementById(objs[i].iid);
+				em.style.visibility = "hidden";
+				iid = objs[i].iid;
+				ids.push(iid);
+				objs[0] = {};	
+			}			
+			console.log(ids);
+		}
+		
+		
+	</script>
+	
+	<body onload=init(); >
+	<input type='button' value='enum items' onclick=showThem(); />
+	<div id='inputHere'>
+	
+	</div>
+	</body>
+	
+	</html>
